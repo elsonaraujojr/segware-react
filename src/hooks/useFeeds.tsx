@@ -42,10 +42,27 @@ export function FeedsProvider({ children }: FeedsProviderProps) {
 
 
   async function createFeed(feed: FeedInput) {
-    const response = await authAxios.post("/feeds", feed);
+    const response = await authAxios.post("/feed", feed);
+    const status = response.status;
+    console.log('Status: ', status);
 
-    const { feedSave } = response.data;
-    setFeeds([...feeds, feedSave]);
+    if (status === 201) {
+
+      // const newFeed = {
+      //   id: 
+      //   content: feed.content,
+      //   createdAt:
+      //   updatedAt:
+      //   likes:
+      //   loves:
+      //   activeUserLikedIt:
+      //   activeUserLovedIt:
+      //   author:
+      // };
+
+      // setFeeds([...feeds, feed.content]);
+    }
+
   }
 
   return (
