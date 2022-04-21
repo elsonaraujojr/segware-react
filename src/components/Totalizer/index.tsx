@@ -1,7 +1,28 @@
+import { FaHeart, FaIcons, FaThumbsUp } from "react-icons/fa";
+import { useFeeds } from "../../hooks/useFeeds";
 import { Container } from "./styles";
-import { FaHeart, FaThumbsUp, FaIcons } from "react-icons/fa";
 
 export function Totalizer() {
+  const { feeds } = useFeeds();
+  console.log("Totalizer: ", feeds);
+
+  const result = feeds.reduce(
+    (accumulator, feed) => {
+      if (feed.author.id === 8) {
+        accumulator.like += feed.likes;
+        accumulator.love += feed.loves;
+        accumulator.total += feed.likes + feed.loves;
+      }
+
+      return accumulator;
+    },
+    {
+      like: 0,
+      love: 0,
+      total: 0,
+    }
+  );
+
   return (
     <Container>
       <div>
@@ -9,7 +30,7 @@ export function Totalizer() {
           <p>Love</p>
           <FaHeart />
         </header>
-        <strong>31</strong>
+        <strong>{result.love}</strong>
       </div>
 
       <div>
@@ -17,7 +38,7 @@ export function Totalizer() {
           <p>Likes</p>
           <FaThumbsUp />
         </header>
-        <strong>32</strong>
+        <strong>{result.like}</strong>
       </div>
 
       <div className="blue-light-plus">
@@ -25,7 +46,7 @@ export function Totalizer() {
           <p>Total</p>
           <FaIcons />
         </header>
-        <strong>33</strong>
+        <strong>{result.total}</strong>
       </div>
     </Container>
   );
