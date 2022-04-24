@@ -4,8 +4,6 @@ import { Container } from "./styles";
 
 export function Totalizer() {
   const { feeds } = useFeeds();
-  console.log("Totalizer: ", feeds);
-
   const result = feeds.reduce(
     (accumulator, feed) => {
       if (feed.author.id === 8) {
@@ -28,7 +26,7 @@ export function Totalizer() {
       <div>
         <header>
           <p>Love</p>
-          <FaHeart />
+          <FaHeart size={30} />
         </header>
         <strong>{result.love}</strong>
       </div>
@@ -36,7 +34,7 @@ export function Totalizer() {
       <div>
         <header>
           <p>Likes</p>
-          <FaThumbsUp />
+          <FaThumbsUp size={30} />
         </header>
         <strong>{result.like}</strong>
       </div>
@@ -44,7 +42,7 @@ export function Totalizer() {
       <div className="blue-light-plus">
         <header>
           <p>Total</p>
-          <FaIcons />
+          <FaIcons size={30} />
         </header>
         <strong>{result.total}</strong>
       </div>
