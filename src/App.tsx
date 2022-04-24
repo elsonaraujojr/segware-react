@@ -1,15 +1,15 @@
-import { Dashboard } from "./components/Dashboard";
-import { Header } from "./components/Header";
-import { FeedsProvider } from "./hooks/useFeeds";
+import { UseAuthProvider } from "./hooks/useAuth";
+import { AppRoutes } from "./routes/AppRoutes";
 import { GlobalStyle } from "./styles/global";
+import { ToastContainer } from "react-toastify";
+
 
 export function App() {
   return (
-    <FeedsProvider>
-      <Header />
-      <Dashboard />
-      <GlobalStyle />
-    </FeedsProvider>
+    <UseAuthProvider>
+      <ToastContainer autoClose={3000} />
+        <AppRoutes />
+        <GlobalStyle />
+    </UseAuthProvider>
   );
 }
-
