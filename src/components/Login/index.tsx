@@ -25,7 +25,7 @@ export function Login() {
       <h1>Login</h1>
       <form onSubmit={sendLogin}>
         <div>
-          <label htmlFor="email">Username</label>
+          <label htmlFor="email" className="test">Username</label>
           <input
             type="text"
             id="email"
