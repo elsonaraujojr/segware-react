@@ -1,4 +1,6 @@
 import { createGlobalStyle } from "styled-components";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -13,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
 
     --text-title: #363f5f;
     --text-body: #969cb3;
-    /* --background: #373737; */
+    --icon: #737373;
     --shape: #fcfcfc;
   }
 
