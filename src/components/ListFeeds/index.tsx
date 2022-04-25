@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import { FaHeart, FaThumbsUp } from "react-icons/fa";
+import { toast } from "react-toastify";
 import { useFeeds } from "../../hooks/useFeeds";
 import { api } from "../../services/api";
 import { ItemFeed } from "../ItemFeed";
@@ -12,7 +13,7 @@ interface PropsReaction {
 }
 
 export function ListFeeds() {
-  const { feeds, createFeed } = useFeeds();
+  const { feeds, createFeed, getFeeds } = useFeeds();
   const [newFeed, setNewFeed] = useState("");
 
   async function handleCreateNewTransaction(event: FormEvent) {
@@ -30,12 +31,11 @@ export function ListFeeds() {
   }
 
   async function handleLikeFeed(reaction: PropsReaction) {
-    console.log(reaction);
-    const response = await api.post('/reaction', reaction);
-    if(response.status === 200) {
-      window.location.reload();
+    const status = await api.post('/reaction', reaction)
+      .then((response) => response.status);
+    if(status === 200) {
+      getFeeds();
     }
-    
   }
 
   return (

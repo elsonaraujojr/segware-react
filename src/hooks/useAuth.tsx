@@ -2,7 +2,6 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
 
-
 interface User {
   id: number;
   username: string;
@@ -38,11 +37,8 @@ export function UseAuthProvider({ children }: UseAuthProviderProps) {
 
       if (token) {
         localStorage.setItem("token", token);
-        console.log(typeof localStorage.getItem("token"));
-
         setAuthenticated(true);
       }
-      console.log("Login realizado com sucesso!");
     } catch (error) {
       toast.error("Erro ao realizar login");
       setAuthenticated(false);

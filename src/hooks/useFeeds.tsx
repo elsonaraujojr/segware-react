@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-toastify";
 import { api } from "../services/api";
 
 interface Author {
@@ -33,6 +34,7 @@ interface FeedsProviderProps {
 interface FeedsContextData {
   feeds: Feed[];
   createFeed(feed: FeedInput): Promise<void>;
+  getFeeds(): Promise<void>;
 }
 
 const FeedsContext = createContext<FeedsContextData>({} as FeedsContextData);
@@ -43,12 +45,25 @@ export function FeedsProvider({ children }: FeedsProviderProps) {
   useEffect(() => {
     api.get("feeds").then((response) => setFeeds(response.data));
   }, []);
+
   async function createFeed(feed: FeedInput) {
-    await api.post("/feed", feed);
+    const status = await api.post("/feed", feed)
+      .then((response) => response.status);
+    console.log(status);
+    
+
+    if (status === 201) {
+      toast.success("Salvo com sucesso!");
+      getFeeds();
+    }
+  }
+  
+  async function getFeeds() {
+    await api.get("feeds").then((response) => setFeeds(response.data));
   }
 
   return (
-    <FeedsContext.Provider value={{ feeds, createFeed }}>
+    <FeedsContext.Provider value={{ getFeeds, feeds, createFeed }}>
       {children}
     </FeedsContext.Provider>
   );
