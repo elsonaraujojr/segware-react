@@ -1,12 +1,16 @@
 import { FaHeart, FaIcons, FaThumbsUp } from "react-icons/fa";
+import { useAuth } from "../../hooks/useAuth";
 import { useFeeds } from "../../hooks/useFeeds";
 import { Container } from "./styles";
 
 export function Totalizer() {
   const { feeds } = useFeeds();
+  const { userId } = useAuth();
+  console.log(userId)
+
   const result = feeds.reduce(
     (accumulator, feed) => {
-      if (feed.author.id === 8) {
+      if (feed.author.id === userId) {
         accumulator.like += feed.likes;
         accumulator.love += feed.loves;
         accumulator.total += feed.likes + feed.loves;

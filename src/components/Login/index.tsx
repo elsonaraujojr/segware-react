@@ -1,10 +1,10 @@
 import { FormEvent, useState } from "react";
-import { useUseAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { Container } from "./styles";
 
 export function Login() {
 
-  const { login } = useUseAuth();
+  const { login } = useAuth();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

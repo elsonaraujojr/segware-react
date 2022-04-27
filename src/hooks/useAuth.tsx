@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useId, useState } from "react";
+import jwt from 'jwt-decode'
 import { api } from "../services/api";
 import { toast } from "react-toastify";
 
@@ -15,7 +16,7 @@ interface UseAuthProviderProps {
 }
 
 interface UseAuthContextData {
-  // user: User;
+  userId?: number;
   logout(): void;
   login(user: UserLogin): Promise<void>;
   authenticated: boolean;
@@ -26,13 +27,21 @@ const UseAuthContext = createContext<UseAuthContextData>(
 );
 
 export function UseAuthProvider({ children }: UseAuthProviderProps) {
-  // const [user, setUser] = useState<User>({} as User);
+  const [userId, setUserId] = useState<number>();
   const [authenticated, setAuthenticated] = useState(false);
 
-  async function login(user: UserLogin) {
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const userOld: User = jwt(token);
+      setUserId(userOld.id);
+    }
+  }, []);
+
+  async function login(userLigon: UserLogin) {
     try {
       const token = await api
-        .post("/sign-in", user)
+        .post("/sign-in", userLigon)
         .then((response) => response.data);
 
       if (token) {
@@ -52,13 +61,13 @@ export function UseAuthProvider({ children }: UseAuthProviderProps) {
   }
 
   return (
-    <UseAuthContext.Provider value={{ login, logout, authenticated }}>
+    <UseAuthContext.Provider value={{ login, logout, userId, authenticated }}>
       {children}
     </UseAuthContext.Provider>
   );
 }
 
-export function useUseAuth() {
+export function useAuth() {
   const context = useContext(UseAuthContext);
 
   return context;

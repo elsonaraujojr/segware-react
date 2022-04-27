@@ -1,10 +1,10 @@
 import logoImg from "../../assets/images/segware-branco.webp";
-import { useUseAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { Container, Content } from "./styles";
 
 export function Header() {
 
-  const { logout } = useUseAuth();
+  const { logout } = useAuth();
 
   return (
     <Container>
