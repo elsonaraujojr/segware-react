@@ -18,6 +18,11 @@ export function ListFeeds() {
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
+    
+    if (!newFeed) {
+      toast.error("Preencha o campo com seu comentário!");
+      return;
+    }
 
     await createFeed({
       content: newFeed,
@@ -42,7 +47,7 @@ export function ListFeeds() {
     <Container>
       <form onSubmit={handleCreateNewTransaction}>
         <textarea
-          placeholder="Qual comentário que envia?"
+          placeholder="Qual comentário quer envia?"
           onChange={(event) => setNewFeed(event.target.value)}
           value={newFeed}
         />

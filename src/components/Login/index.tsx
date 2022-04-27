@@ -43,7 +43,7 @@ export function Login() {
           />
         </div>
         <div>
-          <button type="submit">Login</button>
+          <button type="submit">Entrar</button>
         </div>
       </form>
     </Container>

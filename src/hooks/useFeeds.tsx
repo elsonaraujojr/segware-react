@@ -49,8 +49,6 @@ export function FeedsProvider({ children }: FeedsProviderProps) {
   async function createFeed(feed: FeedInput) {
     const status = await api.post("/feed", feed)
       .then((response) => response.status);
-    console.log(status);
-    
 
     if (status === 201) {
       toast.success("Salvo com sucesso!");
